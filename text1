@@ -1,1 +1,28 @@
 
+mongodb+srv://infobsc12:Srilanka@react--cluster.17wb82j.mongodb.net/?retryWrites=true&w=majority
+
+
+{"_id":{"$oid":"65a39c9a6114760cd524998b"},"firstname":"","lastname":"","department":"","class":"","gender":"","birthday ":"","age":"","graduated":false}
+
+
+Building Web APIs with ASP.NET Core in .NET
+Learning ASP.NET Core MVC
+Building Angular and ASP.NET Core Applications
+ASP.NET Core in .NET 6: Dependency Injection
+ASP.NET Core: Test-Driven Development
+ASP.NET Core: Communication Management
+Querying Microsoft SQL Server 2022
+Microsoft SQL Server 2022 Essential Training
+The DOM in JavaScript, jQuery, AngularJS, and React
+Amazon EC2 Essential Training
+AWS Certified Solutions Architect - Associate (SAA-C03)
+Cert Prep: 4 Compute Services
+Amazon Web Services: Data Services
+Learning Docker
+Learning C#
+Python: XML, JSON, and the Web
+Advanced ASP.NET Core: Unit Testing
+React: Server-Side Rendering
+JavaScript Essential Training
+TypeScript Essential Training
+
