@@ -1,0 +1,83 @@
+
+Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity.
+
+ACID stands for Atomicity, Consistency, Isolation, and Durability. These properties ensure that database transactions are reliable and maintain data integrity.
+
+
+SELECT * FROM USER
+ORDER BY Age;
+
+Insert into user (firstName, LastName,Age)
+Values (abc, xyz, 25);
+
+InsertNull Value _
+Insert INTO tablename (column1,column2,...)
+VALUES (value1,Null,..);
+
+to check for null values 
+Select column1,column2,..
+From table_name
+where column2 Is NULL;
+
+
+Update table_name
+SET Column1 = Value1, column2 = Value2,....
+WHERE some_column = Some_value;
+
+
+duplicate edukka 
+Group By 
+edukkanum count edukka
+
+SET Operation Union 
+
+DELETE FROM tablename WHERE Condition;
+
+Alias 
+As - it is used to give a temporary name to a table or a column in a query
+Select Column_name AS Alias_name
+From table_name;
+
+Union - cobine the result sets 
+SELECT column_name
+From table-name-1
+UNION 
+SELECT Column_name
+From table_name-2;
+
+Sql Join 
+Inner join 
+SELECT Column_name
+From table1
+INNER JOIN table2
+ON table1.Column.name=table2.Column.name;
+
+same right join 
+
+Full join 
+SELECT Column_name
+FROM table1
+FULL Outer JOIN table2
+ON table1.Column-name = table2.Column-name
+WHERE condition
+
+SELECT *from Customer
+truncate table user;
+
+truncate roll back panna eala and delete pannalam 
+where class used panna eala truncate le 
+faster truncate 
+
+
+varchar 2 endu than oracle edukkum 
+Varchar2() - 4000 bytes 
+dynamica memory allocate pannum 
+
+Create table customer
+(
+customer_id number(8),
+cust_name char(30),
+address varchar(30)
+);
+desc customer;
+Insert into customer values(1000, 'ajith', 'bang');
