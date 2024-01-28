@@ -1,0 +1,24 @@
+single ton class - can only be instantiated once
+
+one class inherit another class/ perent class
+
+non functional requirements - specify general behavior requirementsof the system
+ex- accessibility , amintainabiulity , security
+
+ water fall methods -
+requirements
+design
+implementation
+verification 
+maintenance 
+
+MVC - model view controller 
+-mvc architecture is used to most commanly for gui applications and means to separate
+the data from the user interface.
+
+queue vs stack queue is FIFO - first in first out
+	stack - LIFO
+
+recursive function -is a function that calls itself.at each function call,
+		one or more parameters are changed 
+		re-is resolved 
