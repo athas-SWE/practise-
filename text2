@@ -1,2 +1,53 @@
 
-hiii
+thread method - used to start a newly created thread
+start ()
+getstate() -return state
+getName() - return name
+getPriority() - return priority
+sleep() - stop the thread
+join() - stop the current thread
+isAlive() - 
+
+
+thread lifecycle
+new ---- new state
+ruunable
+running
+waiting
+terminated
+
+
+OOP provides access specifiers and data hiding features for more security
+ and control data access,
+ overloading can be achieved with function
+
+ Inheritance means one class (sub class) acquiring properties
+ of another class (super class) by inheritance.
+
+Polymorphism is an ability to have multiple forms or 
+capability of the method to do different things.
+
+Abstraction reveals only essential details to the user and 
+ignores or hides irrelevant or complex details.
+
+Interface is similar to the class where it can have methods and variables,
+
+EXTENd           					Implements
+Class can only extend a single super class.	Class can implement any number of interfaces.
+Interface can extend more than one interfaces.	Interface cannot implement any other interface.
+
+
+Modifiers 
+Default - without any access
+private   accessible only within class
+protected  - different package
+public  -  accesible every where
+ 
+Compile Time Polymorphism	               Runtime Polymorphism
+Call is resolved by a 				Call is not resolved by the
+compiler in compile-time polymorphism.	    compiler in runtime polymorphism.
+It is also known as static 			It is also known as dynamic, late, 
+binding and method overloading.   		 and method overriding.
+less flexible 					more flexible
+
+
