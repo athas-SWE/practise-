@@ -1,0 +1,69 @@
+Scanner
+
+Using a scanner class to read input data is probably the fastest and preferred method. The scanner is mostly used for parsing the data types including primitive types and strings. But it can also be used to read the input data and parse it using tokenized input.
+
+The scanner class uses regular expressions for this purpose.
+
+The following program reads the input data from the user using the scanner class.
+
+import java.util.Scanner; 
+   
+class Main 
+{ 
+    public static void main(String args[]) 
+    { 
+        Scanner myscan = new Scanner(System.in); 
+   
+        System.out.println("Enter the input:");
+        String mystr = myscan.nextLine(); 
+        System.out.println("You entered a string:"+mystr); 
+        System.out.println("Enter Next input:");  
+        int num = myscan.nextInt();  
+        System.out.println("You entered an integer:"+num); 
+    } 
+}
+
+
+Console Class
+
+The class “System.console” can be used to read input from the console. This is used to especially read input characters like a password from the command line.
+
+The method of reading input data using the console class is currently the most efficient and preferred method in Java.
+
+The following program demonstrates the System.console class.
+
+public class Main
+{ 
+    public static void main(String[] args)  
+    {         
+        System.out.println("Enter the input string");
+        String name = System.console().readLine(); 
+           
+        System.out.println("You entered: " + name);         
+    } 
+}
+
+
+ Class BufferedReader
+
+The class BufferedReader was first introduced in JDK 1.0 and is the classical method of reading input data from the console.
+
+The input stream (System.in) is wrapped inside the class InputStreamReader which is in turn wrapped in BufferedReader.
+
+The following program shows the usage of the BufferedReader class to read input data from the user.
+
+import java.io.BufferedReader; 
+import java.io.IOException; 
+import java.io.InputStreamReader; 
+public class Main {
+    public static void main(String[] args) throws IOException {
+          
+        BufferedReader reader =  
+                   new BufferedReader(new InputStreamReader(System.in)); 
+          
+        System.out.println("Enter the input string");
+        String name = reader.readLine(); 
+   
+        System.out.println("You entered: " + name);         
+    } 
+}
