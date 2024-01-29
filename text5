@@ -1,0 +1,107 @@
+C# and .NET Training Course Outline
+Module 1: .NET - What You Need to Know? 
+
+.NET Executables and the CLR 
+Common Language Runtime
+Components of CLR
+.NET Testbed for C# Programming 
+Module 2: C# for the Sophisticated Programmer 
+
+First C# Console Application 
+Namespaces 
+Data Types 
+Control Structures 
+Subroutines and Functions 
+Console I/O 
+Exception Handling 
+Module 3: Object-Oriented Programming in C# 
+
+Classes 
+Access Control 
+Methods and Properties 
+Static Data and Methods 
+Inheritance 
+Overloading and Overriding Methods 
+Interfaces 
+Module 4: C# and the .NET Framework ​ 
+
+Class Hierarchies 
+.NET Interfaces 
+Using Generic Interfaces: ICloneable and IComparable 
+System.Array 
+Collections 
+Delegates 
+Events 
+Module 5: Interoperating with COM and Win32 
+
+.NET Client Calling a COM Server 
+COM Client Calling a .NET Server 
+Pinvoke 
+Module 6: Database Programming Using ADO.NET 
+
+ADO .NET Overview 
+.NET Data Providers 
+Using Data Reader 
+Using Datasets 
+Interacting with XML Data 
+Module 7: Visual Studio .NET Database Testbed 
+
+Server Explorer 
+Module 8: Using Visual Studio.NET ​ 
+
+Overview of Visual Studio.NET 
+Creating a Console Application 
+Project Configuration Debugging 
+Module 9: Net Fundamentals ​ 
+
+What is Microsoft.NET? 
+Common Language Runtime 
+Attribute Based Programming 
+Common Type System 
+Assemblies and Deployment 
+Web Services 
+ASP.NET 
+Module 10: Class Libraries 
+
+Components in .NET 
+Building Class Libraries at the Command Line 
+Class Libraries Using Visual Studio 
+Module 11: Assemblies and Deployment ​ 
+
+Assemblies 
+Types of Assemblies
+Private Assembly Deployment 
+Ways to Deploy an Assembly 
+Module 12: Metadata and Reflection 
+
+Metadata 
+Reflection 
+Late Binding 
+Module 13: Introduction to Windows Forms 
+
+Creating Windows Applications Using Visual Studio .NET 
+Handling Events 
+Shared Assembly Deployment 
+Assembly Configuration 
+Module 14: I/O and Serialisation 
+
+Directories 
+Files 
+Serialisation 
+Attributes 
+Module 15: .NET Programming Model ​ 
+
+Threading and Synchronisation 
+Context 
+Application Domain 
+Marshal by Value 
+Marshal by Reference 
+Memory Management and Garbage Collection 
+Module 16: Security 
+
+Authentication and Authorisation 
+Internet Security 
+Code Access Security 
+Permissions 
+Role-Based Security 
+Principals and Identities
