@@ -1,0 +1,26 @@
+Find max using c# 
+using System;
+
+class Program
+{
+    static int FindMax(int[] nums)
+    {
+        if (nums == null || nums.Length == 0)
+            throw new ArgumentException("Array is empty or null");
+
+        int max = nums[0];
+        for (int i = 1; i < nums.Length; i++)
+        {
+            if (nums[i] > max)
+                max = nums[i];
+        }
+        return max;
+    }
+
+    static void Main(string[] args)
+    {
+        int[] numbers = { 3, 7, 2, 9, 4, 1 };
+        int maxNumber = FindMax(numbers);
+        Console.WriteLine(maxNumber); // Output: 9
+    }
+}
