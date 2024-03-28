@@ -1,0 +1,122 @@
+IT20301422 Ahamed A.R.A
+
+
+
+CREATE TABLE client (
+    clno char(3),
+    name varchar2(12),
+    address varchar2(30),
+    CONSTRAINT PK_CLIENT primary key (clno)
+)
+
+
+CREATE TABLE stock (
+    company char(7),
+    price number(6,2),
+    dividend number(4,2),
+    eps number(4,2),
+	
+    CONSTRAINT PK_STOCK primary key (company)
+)
+
+CREATE TABLE trading (
+    company char(7),
+    exchange varchar2(12),
+
+    CONSTRAINT PK_TRADING primary key(company , exchange),
+    CONSTRAINT FK_TRADING foreign key(company) references stock(company)
+)
+
+
+CREATE TABLE purchase(
+    clno char(3),
+    company char(7),
+    pdate date ,
+    qrt number(6),
+    price number(6,2),
+
+    CONSTRAINT PK_PURCHASE primary key (clno , company , pdate) ,
+    CONSTRAINT FK_PURCHASE_COMPANY foreign key (company) references stock(company) ,
+    CONSTRAINT FK_PURCHASE_CLNO foreign key (clno) references client(clno) 
+    
+)
+
+INSERT into client values('c1' , 'John Smith', '3 East Av, Bentley , W A 6102') 
+INSERT into client values('c2' , 'Jill Brody', '42 Bent St, Perth , W A 6001')
+
+
+INSERT into stock values('BHP' , 10.50 , 1.50 , 3.20) ;
+INSERT into stock values('IBM' , 70.00 , 4.25 , 10.00) ;
+INSERT into stock values('INTEL' , 76.50 , 5.00 , 12.40) ;
+INSERT into stock values('FORD' , 40.00 , 2.00 , 8.50) ;
+INSERT into stock values('GM' , 60.00 , 2.50 , 9.20) ;
+INSERT into stock values('INFOSYS' , 45.00 , 3.00 , 7.80) ;
+
+
+INSERT into trading values('BHP' , 'Sydney') ;
+INSERT into trading values('BHP' , 'New York') ;
+
+INSERT into trading values('IBM' , 'Sydney') ;
+INSERT into trading values('IBM' , 'London') ;
+INSERT into trading values('IBM' , 'Tokyo') ;
+
+INSERT into trading values('INTEL' , 'New York') ;
+INSERT into trading values('INTEL' , 'London') ;
+
+INSERT into trading values('FORD' , 'New York') ;
+
+INSERT into trading values('GM' , 'New York') ;
+
+INSERT into trading values('INFOSYS' , 'New York') ;
+
+
+INSERT into purchase values('c1' , 'BHP' , '02-OCT-2001' , 1000 , 12.00) ;
+INSERT into purchase values('c1' , 'BHP' , '08-JUN-2001' , 2000 , 10.50) ;
+
+INSERT into purchase values('c1' , 'IBM' , '12-FEB-2000' , 500 , 58.00) ;
+INSERT into purchase values('c1' , 'IBM' , '10-APR-2001' , 1200 , 65.00) ;
+
+INSERT into purchase values('c1' , 'INFOSYS' , '11-AUG-2001' , 1000 , 64.00) ;
+
+
+INSERT into purchase values('c2' , 'INTEL' , '30-JAN-2000' , 300 , 35.00) ;
+INSERT into purchase values('c2' , 'INTEL' , '30-JAN-2001' , 400 , 54.00) ;
+INSERT into purchase values('c2' , 'INTEL' , '02-OCT-2001' , 200 , 60.00) ;
+
+INSERT into purchase values('c2' , 'FORD' , '05-OCT-1999' , 300 , 40.00) ;
+
+INSERT into purchase values('c2' , 'GM' , '12-DEC-2000' , 500 , 55.50) ;
+
+
+
+
+
+SELECT c.name , p.company , s.price , s.eps, s.dividend
+FROM client c , purchase p , stock s
+WHERE c.clno = p.clno  AND s.company = p.company 
+
+
+SELECT c.name , SUM(p.qrt)  , sum(p.price * p.qrt)/sum(p.qrt)
+FROM client c  , purchase p
+WHERE c.clno= p.clno 
+GROUP BY c.name
+
+
+
+SELECT t.company , c.name , p.qrt , s.price * p.qrt
+FROM trading t  , purchase p , client c , stock s
+WHERE t.exchange = 'New York' AND p.company  = t.company AND c.clno = p.clno  AND s.company = t.company
+
+
+SELECT c.name , sum(p.price * p.qrt)
+FROM client c , purchase p
+where  c.clno = p.clno
+GROUP BY c.clno ,c.name
+
+
+SELECT  c.name , sum(p.qrt * s.price)-sum( p.qrt * p.price )
+FROM client c , purchase p , stock s 
+WHERE c.clno = p.clno and p.company = s.company 
+GROUP BY c.clno ,c.name
+
+
