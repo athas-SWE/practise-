@@ -1,0 +1,222 @@
+--Database Systems - IT3020 - Labsheet 03
+--01)
+
+--create type address as object
+CREATE TYPE Address AS OBJECT (
+    street_number NUMBER,
+    street_name VARCHAR2(100),
+    suburb VARCHAR2(20),
+    states VARCHAR2(20),
+    pin NUMBER
+)
+/
+
+--create type investment as object
+CREATE TYPE Investment AS OBJECT (
+    company VARCHAR2(20),
+    purchase_price NUMBER,
+    purch_date DATE,
+    quantity NUMBER
+)
+/
+
+--create VARRAY for exchanges_traded in Stock
+CREATE TYPE ExchangeList AS VARRAY(10) OF VARCHAR2(100)
+/
+
+--Create Nested Investments table in Client table
+CREATE TYPE InvestmentsList AS TABLE OF Investment
+/
+
+--create tables
+--create table clients
+CREATE TABLE Clients(
+    client_no NUMBER primary key,
+    first_name varchar(20),
+    last_name varchar(20),
+    address Address,
+    investments InvestmentsList   
+)
+    NESTED TABLE investments STORE AS investments_table
+/
+
+--create table stocks
+CREATE TABLE Stocks(
+    company VARCHAR(10) primary key,
+    cuurent_price NUMBER,
+    exchanges_traded ExchangeList,
+    last_dividend NUMBER,
+    earning_per_share NUMBER
+)
+/
+
+--02)
+--Insert data into the Client table
+INSERT INTO Clients VALUES(1,'John','Smith',
+    Address(3,'East Av','Bentley','WA',6102),
+    InvestmentsList(
+    Investment('BHP',12.00,TO_DATE('02/10/2001','DD/MM/YYYY'),1000),
+    Investment('BHP',10.50,TO_DATE('08/06/2002','DD/MM/YYYY'),2000),
+    Investment('IBM',58.00,TO_DATE('12/02/2000','DD/MM/YYYY'),500),
+    Investment('IBM',65.00,TO_DATE('10/04/2001','DD/MM/YYYY'),1200),
+    Investment('INFOSYS',64.00,TO_DATE('11/08/2001','DD/MM/YYYY'),1000)
+    )
+)
+/  
+
+INSERT INTO Clients VALUES(2,'Jill','Brody',
+    Address(42,'Bent St','Perth','WA',6001),
+    InvestmentsList(
+    Investment('INTEL',35.00,TO_DATE('30/01/2000','DD/MM/YYYY'),300),
+    Investment('INTEL',54.00,TO_DATE('30/01/2001','DD/MM/YYYY'),400),
+    Investment('INTEL',60.00,TO_DATE('02/10/2001','DD/MM/YYYY'),200),
+    Investment('FORD',40.00,TO_DATE('05/10/1999','DD/MM/YYYY'),300),
+    Investment('GM',55.50,TO_DATE('12/12/2000','DD/MM/YYYY'),500)
+    )
+)
+/
+
+--Insert data into the Stock table
+INSERT INTO Stocks VALUES(
+    'BHP',10.50,
+    ExchangeList('Sydney','New York'),
+    1.50,3.20
+)
+/
+
+INSERT INTO Stocks VALUES(
+    'IBM',70.00,
+    ExchangeList('New York','London','Tokyo'),
+    4.25,10.00
+)
+/
+
+INSERT INTO Stocks VALUES(
+    'INTEL',76.50,
+    ExchangeList('New York','London'),
+    5.00,12.40
+)
+/
+
+INSERT INTO Stocks VALUES(
+    'FORD',40.00,
+    ExchangeList('New York'),
+    2.00,8.50
+)
+/
+
+INSERT INTO Stocks VALUES(
+    'GM',60.00,
+    ExchangeList('New York'),
+    2.50,9.20
+)
+/
+
+INSERT INTO Stocks VALUES(
+    'INFOSYS',45.00,
+    ExchangeList('New York'),
+    3.00,7.80
+)
+/
+
+--03)
+/*a)For each client, get the client’s name, and the list of the client’s investments 
+with stock name, current price, last dividend and earnings per share.*/
+SELECT 
+    c.first_name || ' ' || c.last_name AS "Client Name",
+    i.company AS "Stock Name",
+    s.cuurent_price AS "Current Price",
+    s.last_dividend AS "Last Dividend",
+    s.earning_per_share AS "Earning per Share"
+FROM Clients c,TABLE(c.investments) i,Stocks s
+WHERE i.company = s.company
+/
+
+/*b)Get the list of all clients and their share investments, showing the client name, and
+for each stock held by the client, the name of the stock, total number of shares held, and
+the average purchase price paid by the client for the stock. Average price is the total purchase
+value paid by a client for a given stock (value=qty*price) divided by the total quantity held by the client.*/
+SELECT 
+    c.first_name || ' ' || c.last_name AS "Client Name",
+    i.company AS "Stock Name",
+    SUM(i.quantity) AS "Total No. of Shares held",
+    SUM(i.purchase_price * i.quantity) / SUM(i.quantity) As "Average purchase price"
+FROM Clients c,TABLE(c.investments) i
+GROUP BY c.first_name,c.last_name,i.company
+/
+
+/*c)For each stock traded in New York, find the quantity held by each client, and its current value 
+(value=qty*price).Display stock (company) name, client name, number of shares held, and the current value of the shares. */
+SELECT
+    s.company AS "Stock Name",
+    c.first_name || ' ' || c.last_name AS "Client Name",
+    i.quantity AS "No. of Shares held",
+    (i.quantity * s.cuurent_price) AS "Current Value"
+FROM Clients c,Stocks s,TABLE (c.investments) i
+WHERE 
+    i.company = s.company 
+    AND EXISTS(
+    SELECT 1
+    FROM TABLE(s.exchanges_traded) e
+    WHERE e.COLUMN_VALUE = 'New York'
+    )
+/
+
+/*d)Find the total purchase value of investments for all clients. Display client name and total purchase value of the client’s
+portfolio.*/
+SELECT
+    c.first_name || ' ' || c.last_name AS "Client Name",
+    SUM(i.purchase_price * i.quantity) AS "Total purchase Value"
+FROM  Clients c,TABLE(c.investments) i
+Group BY c.first_name,c.last_name
+/
+
+/*e) For each client, list the book profit (or loss) on the total share investment. Book profit is the total value of all stocks
+based on the current prices less the total amount paid for purchasing them.*/
+SELECT
+    c.first_name || ' ' || c.last_name AS "Client Name",
+    SUM(s.cuurent_price * i.quantity) - SUM(i.purchase_price * i.quantity) AS "Book Profit(or loss)"
+FROM Clients c,TABLE(c.investments) i,Stocks s
+WHERE i.company = s.company
+GROUP BY c.first_name,c.last_name
+/
+
+--04)
+--Update John's investments list to remove INFOSYS stocks record
+DELETE FROM TABLE((
+    SELECT investments 
+    FROM Clients c
+    WHERE c.client_no = 1
+    ))
+WHERE company = 'INFOSYS'
+/
+
+--Update Jill's investments list to remove GM stocks records
+DELETE FROM TABLE((
+    SELECT investments 
+    FROM Clients c
+    WHERE c.client_no = 2
+))
+WHERE company = 'GM'
+/
+
+--Update John's invetments list to add new GM stocks record
+INSERT INTO TABLE((
+    SELECT investments
+    FROM Clients c
+    WHERE c.client_no = 1
+))
+VALUES
+    ('GM',55.50,TO_DATE('12/12/2000','DD/MM/YYYY'),500)
+/
+
+--Update Jill's invetments list to add new INFOSYS stocks record
+INSERT INTO TABLE((
+    SELECT investments
+    FROM Clients c
+    WHERE c.client_no = 2
+))
+VALUES
+	('INFOSYS',64.00,TO_DATE('11/08/2001','DD/MM/YYYY'),1000)
+/
+
