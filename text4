@@ -1,4 +1,3 @@
-Scanner
 
 Using a scanner class to read input data is probably the fastest and preferred method. The scanner is mostly used for parsing the data types including primitive types and strings. But it can also be used to read the input data and parse it using tokenized input.
 
